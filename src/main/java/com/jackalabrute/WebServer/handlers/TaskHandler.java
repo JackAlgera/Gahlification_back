@@ -1,7 +1,7 @@
 package com.jackalabrute.WebServer.handlers;
 
 import com.jackalabrute.WebServer.models.Task;
-import com.jackalabrute.WebServer.models.Time;
+import com.jackalabrute.WebServer.models.Timestamp;
 import com.jackalabrute.WebServer.utils.IdGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,8 +38,8 @@ public class TaskHandler {
         return tasks.remove(taskId);
     }
 
-    public Task addTask(String taskName, Instant timestamp, Integer delayHours, Integer delayMinutes) {
-        Task newTask = new Task(taskName, timestamp, new Time(delayHours, delayMinutes), idGenerator.getRandomId());
+    public Task addTask(String taskName, Instant timestamp, Timestamp delay) {
+        Task newTask = new Task(taskName, timestamp, delay, idGenerator.getRandomId());
         tasks.put(newTask.getTaskId(), newTask);
 
         return newTask;

@@ -6,13 +6,13 @@ import java.util.UUID;
 public class Task {
     private String taskName;
     private UUID taskId;
-    private Instant currentDate;
-    private Time repeatDelay;
+    private Instant doTaskAtDate;
+    private Timestamp repeatDelay;
 
-    public Task(String taskName, Instant currentDate, Time repeatDelay, UUID taskId) {
+    public Task(String taskName, Instant doTaskAtDate, Timestamp repeatDelay, UUID taskId) {
         this.taskName = taskName;
         this.taskId = taskId;
-        this.currentDate = currentDate;
+        this.doTaskAtDate = doTaskAtDate;
         this.repeatDelay = repeatDelay;
     }
 
@@ -32,19 +32,19 @@ public class Task {
         this.taskId = taskId;
     }
 
-    public Instant getCurrentDate() {
-        return currentDate;
+    public Instant getDoTaskAtDate() {
+        return doTaskAtDate;
     }
 
-    public void setCurrentDate(Instant currentDate) {
-        this.currentDate = currentDate;
+    public void setDoTaskAtDate(Instant doTaskAtDate) {
+        this.doTaskAtDate = doTaskAtDate;
     }
 
-    public Time getRepeatDelay() {
+    public Timestamp getRepeatDelay() {
         return repeatDelay;
     }
 
-    public void setRepeatDelay(Time repeatDelay) {
+    public void setRepeatDelay(Timestamp repeatDelay) {
         this.repeatDelay = repeatDelay;
     }
 }
