@@ -1,8 +1,7 @@
 package com.jackalabrute.WebServer.controllers;
 
-import com.jackalabrute.WebServer.handlers.TaskHandler;
+import com.jackalabrute.WebServer.handlers.TaskHandlerImpl;
 import com.jackalabrute.WebServer.models.Task;
-import com.jackalabrute.WebServer.models.Timestamp;
 import com.jackalabrute.WebServer.statuscodes.NotFoundException;
 import com.jackalabrute.WebServer.utils.DateTimeParser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,7 @@ import java.util.UUID;
 public class TaskController {
 
     @Autowired
-    private TaskHandler taskHandler;
+    private TaskHandlerImpl taskHandler;
 
     @Autowired
     private DateTimeParser dateTimeParser;
@@ -50,12 +49,10 @@ public class TaskController {
     @PostMapping(path = "/api/tasks")
     public ResponseEntity<Task> addTask(
             @RequestParam(required = true, name = "taskName") String taskName,
-            @RequestParam(required = true, name = "startDate") String startDate,
-            @RequestParam(required = true, name = "delayDays") Integer delayDays,
-            @RequestParam(required = true, name = "delayHours") Integer delayHours,
-            @RequestParam(required = true, name = "delayMinutes") Integer delayMinutes
+            @RequestParam(required = true, name = "doTaskAtDate") String doTaskAtDate,
+            @RequestParam(required = true, name = "repeatDelay") Long repeatDelay
             ) {
-        Task task = taskHandler.addTask(taskName, dateTimeParser.parseDate(startDate), new Timestamp(delayDays, delayHours, delayMinutes));
+        Task task = taskHandler.addTask(taskName, dateTimeParser.parseDate(doTaskAtDate), repeatDelay);
 
         return ResponseEntity.ok(task);
     }
