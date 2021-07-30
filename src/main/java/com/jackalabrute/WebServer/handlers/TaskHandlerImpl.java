@@ -44,4 +44,14 @@ public class TaskHandlerImpl implements TaskHandler {
         return newTask;
     }
 
+    public Task updateTask(UUID taskId, Task updatedTask) {
+        if (tasks.get(taskId) == null) {
+            return null;
+        } else {
+            updatedTask.setTaskId(taskId);
+            tasks.put(taskId, updatedTask);
+        }
+        return tasks.get(taskId);
+    }
+
 }

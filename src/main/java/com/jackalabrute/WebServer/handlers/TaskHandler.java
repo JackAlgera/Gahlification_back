@@ -19,4 +19,5 @@ public interface TaskHandler {
 
     Task addTask(String taskName, Instant timestamp, Long repeatDelay);
 
+    Task updateTask(UUID taskId, Task updatedTask);
 }

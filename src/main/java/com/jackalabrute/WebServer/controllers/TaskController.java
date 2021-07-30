@@ -1,5 +1,6 @@
 package com.jackalabrute.WebServer.controllers;
 
+import com.jackalabrute.WebServer.handlers.TaskHandler;
 import com.jackalabrute.WebServer.handlers.TaskHandlerImpl;
 import com.jackalabrute.WebServer.models.Task;
 import com.jackalabrute.WebServer.statuscodes.NotFoundException;
@@ -46,14 +47,34 @@ public class TaskController {
         return ResponseEntity.ok(task);
     }
 
+    /**
+     * Create new task.
+     * @param taskName
+     * @param doTaskAtDate
+     * @param repeatDelay
+     * @return
+     */
     @PostMapping(path = "/api/tasks")
     public ResponseEntity<Task> addTask(
             @RequestParam(required = true, name = "taskName") String taskName,
             @RequestParam(required = true, name = "doTaskAtDate") String doTaskAtDate,
             @RequestParam(required = true, name = "repeatDelay") Long repeatDelay
-            ) {
+    ) {
         Task task = taskHandler.addTask(taskName, dateTimeParser.parseDate(doTaskAtDate), repeatDelay);
 
+        return ResponseEntity.ok(task);
+    }
+
+    @PutMapping(path = "/api/tasks/{taskId}")
+    public ResponseEntity<Task> updateTask(
+            @PathVariable String taskId,
+            @RequestBody Task updatedTask
+    ) {
+        if (taskHandler.getTask(UUID.fromString(taskId)) == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Task task = taskHandler.updateTask(UUID.fromString(taskId), updatedTask);
         return ResponseEntity.ok(task);
     }
 }
