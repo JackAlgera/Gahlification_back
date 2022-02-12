@@ -1,4 +1,4 @@
-package com.jackalabrute.WebServer.utils;
+package com.jackalabrute.gahlification.utils;
 
 import org.springframework.stereotype.Service;
 

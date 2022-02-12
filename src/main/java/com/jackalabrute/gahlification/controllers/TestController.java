@@ -1,4 +1,4 @@
-package com.jackalabrute.WebServer.controllers;
+package com.jackalabrute.gahlification.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

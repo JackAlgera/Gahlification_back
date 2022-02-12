@@ -1,4 +1,4 @@
-package com.jackalabrute.WebServer.security.models;
+package com.jackalabrute.gahlification.security.models;
 
 import java.io.Serializable;
 

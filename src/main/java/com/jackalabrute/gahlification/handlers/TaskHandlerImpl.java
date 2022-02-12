@@ -1,7 +1,7 @@
-package com.jackalabrute.WebServer.handlers;
+package com.jackalabrute.gahlification.handlers;
 
-import com.jackalabrute.WebServer.models.Task;
-import com.jackalabrute.WebServer.utils.IdGenerator;
+import com.jackalabrute.gahlification.models.Task;
+import com.jackalabrute.gahlification.utils.IdGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
-package com.jackalabrute.WebServer.security;
+package com.jackalabrute.gahlification.security;
 
-import com.jackalabrute.WebServer.security.models.JwtRequest;
-import com.jackalabrute.WebServer.security.models.JwtResponse;
+import com.jackalabrute.gahlification.security.models.JwtRequest;
+import com.jackalabrute.gahlification.security.models.JwtResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

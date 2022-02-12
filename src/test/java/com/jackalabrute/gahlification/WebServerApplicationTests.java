@@ -1,4 +1,4 @@
-package com.jackalabrute.WebServer;
+package com.jackalabrute.gahlification;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

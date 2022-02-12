@@ -1,4 +1,4 @@
-package com.jackalabrute.WebServer.statuscodes;
+package com.jackalabrute.gahlification.statuscodes;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;

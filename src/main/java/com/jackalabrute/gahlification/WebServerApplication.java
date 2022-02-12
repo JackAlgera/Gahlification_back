@@ -1,4 +1,4 @@
-package com.jackalabrute.WebServer;
+package com.jackalabrute.gahlification;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

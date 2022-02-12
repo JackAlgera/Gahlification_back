@@ -1,4 +1,4 @@
-package com.jackalabrute.WebServer.security;
+package com.jackalabrute.gahlification.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

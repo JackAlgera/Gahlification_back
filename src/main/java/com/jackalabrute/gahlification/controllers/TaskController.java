@@ -1,12 +1,11 @@
-package com.jackalabrute.WebServer.controllers;
+package com.jackalabrute.gahlification.controllers;
 
-import com.jackalabrute.WebServer.handlers.TaskHandlerImpl;
-import com.jackalabrute.WebServer.models.Task;
-import com.jackalabrute.WebServer.statuscodes.NotFoundException;
-import com.jackalabrute.WebServer.utils.DateTimeParser;
+import com.jackalabrute.gahlification.handlers.TaskHandlerImpl;
+import com.jackalabrute.gahlification.models.Task;
+import com.jackalabrute.gahlification.statuscodes.NotFoundException;
+import com.jackalabrute.gahlification.utils.DateTimeParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

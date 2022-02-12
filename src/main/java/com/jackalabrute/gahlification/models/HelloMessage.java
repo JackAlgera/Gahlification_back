@@ -1,4 +1,4 @@
-package com.jackalabrute.WebServer.models;
+package com.jackalabrute.gahlification.models;
 
 public class HelloMessage {
 

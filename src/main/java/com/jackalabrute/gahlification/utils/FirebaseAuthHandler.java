@@ -1,4 +1,4 @@
-package com.jackalabrute.WebServer.utils;
+package com.jackalabrute.gahlification.utils;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;

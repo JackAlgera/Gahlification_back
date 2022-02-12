@@ -1,4 +1,4 @@
-package com.jackalabrute.WebServer.security;
+package com.jackalabrute.gahlification.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
