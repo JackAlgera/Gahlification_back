@@ -1,0 +1,22 @@
+app:
+  datasource:
+    main:
+      driver-class-name: org.postgresql.Driver
+      jdbc-url: jdbc:postgresql://${DATABASE_INSTANCE}/${DATABASE_NAME}
+      username: ${DATABASE_USER_NAME}
+      password: ${DATABASE_PASSWORD}
+      pool-size: 30
+spring:
+  jackson:
+    property-naming-strategy: "LOWER_CAMEL_CASE"
+
+server:
+  error:
+    include-binding-errors: always
+    include-message: always
+    include-stacktrace: never
+  servlet:
+    context-path: "/api"
+
+jwt:
+  secret: jack
