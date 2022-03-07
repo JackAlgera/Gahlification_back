@@ -1,4 +1,4 @@
-# gcloud builds submit --tag gcr.io/movieselector-326316/movie-selector-backend:latest
+# gcloud builds submit --String gcr.io/movieselector-326316/movie-selector-backend:latest
 
 # Use the official maven/Java 11 image to create a build artifact.
 # https://hub.docker.com/_/maven

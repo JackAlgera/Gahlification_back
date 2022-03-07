@@ -1,19 +1,19 @@
 version: "3.9"
 
 services:
-  #  gahlification_backend:
-  #    container_name: gahlification_backend
-  ##    image: jackalgera/gahlification_backend:latest
-  #    build: .
-  #    ports:
-  #      - "8080:8080"
-  #    environment:
-  #      DATABASE_INSTANCE: 'gahlification_database:5432'
-  #      DATABASE_NAME: gahlification_db
-  #      DATABASE_USER_NAME: gahlification_user
-  #      DATABASE_PASSWORD: gahlification_password
-  #    depends_on:
-  #      - gahlification_database
+#  gahlification_backend:
+#    container_name: gahlification_backend
+##    image: jackalgera/gahlification_backend:latest
+#    build: .
+#    ports:
+#      - "8080:8080"
+#    environment:
+#      DATABASE_INSTANCE: 'gahlification_database:5432'
+#      DATABASE_NAME: gahlification_db
+#      DATABASE_USER_NAME: gahlification_user
+#      DATABASE_PASSWORD: gahlification_password
+#    depends_on:
+#      - gahlification_database
 
   gahlification_database:
     container_name: gahlification_database
@@ -24,7 +24,7 @@ services:
       POSTGRES_USER: gahlification_user
       POSTGRES_PASSWORD: gahlification_password
       POSTGRES_DB: gahlification_db
-      PGDATA: /data/postgres
+      PGDATA: /var/lib/postgres/data/pgdata
     volumes:
       - gahlification_database:/var/lib/postgres
     restart: unless-stopped

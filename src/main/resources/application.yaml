@@ -7,6 +7,12 @@ app:
       password: ${DATABASE_PASSWORD}
       pool-size: 30
 spring:
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
   jackson:
     property-naming-strategy: "LOWER_CAMEL_CASE"
 
