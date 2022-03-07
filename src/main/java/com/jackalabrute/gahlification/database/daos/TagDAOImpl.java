@@ -1,6 +1,6 @@
 package com.jackalabrute.gahlification.database.daos;
 
-import com.jackalabrute.gahlification.database.models.Tag;
+import com.jackalabrute.gahlification.database.models.tags.Tag;
 import com.jackalabrute.gahlification.database.repos.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,12 +20,17 @@ public class TagDAOImpl implements TagDAO {
     }
 
     @Override
-    public void deleteTagByTaskIdAndTagName(UUID taskId, String tagName) {
-        tagRepository.deleteTagByTaskIdAndTagName(taskId, tagName);
+    public void deleteTagByItemIdAndTagName(UUID itemId, String tagName) {
+        tagRepository.deleteTagByItemIdAndTagName(itemId, tagName);
     }
 
     @Override
-    public List<Tag> getTagsForTask(UUID taskId) {
-        return tagRepository.findTagsByTaskId(taskId);
+    public void deleteTagsForItem(UUID itemId) {
+        tagRepository.deleteTagsByItemId(itemId);
+    }
+
+    @Override
+    public List<Tag> getTagsForItemId(UUID itemId) {
+        return tagRepository.findTagsByItemId(itemId);
     }
 }

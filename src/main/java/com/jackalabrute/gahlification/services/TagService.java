@@ -1,8 +1,9 @@
 package com.jackalabrute.gahlification.services;
 
 import com.jackalabrute.gahlification.database.daos.TagDAO;
-import com.jackalabrute.gahlification.database.models.Tag;
-import com.jackalabrute.gahlification.database.models.Task;
+import com.jackalabrute.gahlification.database.models.tags.ETagType;
+import com.jackalabrute.gahlification.database.models.tags.Tag;
+import com.jackalabrute.gahlification.exceptions.TagTypeNotFoundException;
 import com.jackalabrute.gahlification.utils.IdGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,25 +24,29 @@ public class TagService {
     private IdGenerator idGenerator;
 
     public Tag createTag(Tag tag) {
-        taskService.findTaskById(tag.getTaskId());
         tag.setTagId(idGenerator.getRandomId());
-
-        System.out.println(tag);
 
         return tagDAO.createTag(tag);
     }
 
-    public void deleteTagByTaskIdAndTagName(UUID taskId, String tagName) {
-        taskService.findTaskById(taskId);
-        tagDAO.deleteTagByTaskIdAndTagName(taskId, tagName);
+    public void deleteTagByItemIdAndTagName(UUID itemId, String tagName) {
+        if (ETagType.valueOf(tagName) == null) {
+            throw new TagTypeNotFoundException(tagName);
+        }
+
+        taskService.findTaskById(itemId);
+        tagDAO.deleteTagByItemIdAndTagName(itemId, tagName);
     }
 
-    public List<Tag> getTagsForTask(UUID taskId) {
-        Task task = taskService.findTaskById(taskId);
-        return tagDAO.getTagsForTask(task.getTaskId());
+    public void deleteTagsForItem(UUID itemId) {
+        tagDAO.deleteTagsForItem(itemId);
+    }
+
+    public List<Tag> getTagsForItem(UUID itemId) {
+        return tagDAO.getTagsForItemId(itemId);
     }
 
     public boolean checkTagForCreate(Tag tag) {
-        return !tag.getTagName().isBlank() && tag.getTaskId() != null;
+        return !tag.getTagName().isBlank() && !tag.getTagType().isBlank() && tag.getItemId() != null;
     }
 }

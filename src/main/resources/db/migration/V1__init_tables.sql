@@ -12,10 +12,8 @@ CREATE TABLE IF NOT EXISTS tasks
 CREATE TABLE IF NOT EXISTS tags
 (
     tagId uuid NOT NULL PRIMARY KEY,
-    taskId uuid NOT NULL,
+    itemId uuid NOT NULL,
     tagName VARCHAR (255) NOT NULL,
-    FOREIGN KEY (taskId)
-        REFERENCES tasks (taskId)
-        ON DELETE CASCADE
+    tagType VARCHAR (255) NOT NULL
 );
 

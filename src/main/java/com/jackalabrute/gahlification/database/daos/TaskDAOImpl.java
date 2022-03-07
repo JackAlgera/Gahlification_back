@@ -2,6 +2,7 @@ package com.jackalabrute.gahlification.database.daos;
 
 import com.jackalabrute.gahlification.database.models.Task;
 import com.jackalabrute.gahlification.database.repos.TaskRepository;
+import com.jackalabrute.gahlification.services.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +16,9 @@ public class TaskDAOImpl implements DefaultDAO<Task> {
     @Autowired
     private TaskRepository taskRepository;
 
+    @Autowired
+    private TagService tagService;
+
     @Override
     public Optional<Task> findById(UUID id) {
         return taskRepository.findById(id);
@@ -27,6 +31,7 @@ public class TaskDAOImpl implements DefaultDAO<Task> {
 
     @Override
     public void delete(UUID id) {
+        tagService.deleteTagsForItem(id);
         taskRepository.deleteById(id);
     }
 

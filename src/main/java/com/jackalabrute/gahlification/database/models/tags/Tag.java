@@ -1,4 +1,4 @@
-package com.jackalabrute.gahlification.database.models;
+package com.jackalabrute.gahlification.database.models.tags;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,6 +20,7 @@ import java.util.UUID;
 public class Tag implements Serializable {
     @Id
     private UUID tagId;
-    private UUID taskId;
+    private UUID itemId;
     private String tagName;
+    private String tagType;
 }

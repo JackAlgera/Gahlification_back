@@ -1,6 +1,6 @@
-package com.jackalabrute.gahlification.database.models;
+package com.jackalabrute.gahlification.database.models.tags;
 
-public enum ETag {
+public enum ETagName {
     ADMIN("Admin"),
     URGENT("Urgent"),
     GAHLOU("Gahlou"),
@@ -8,12 +8,12 @@ public enum ETag {
 
     public final String label;
 
-    ETag(String label) {
+    ETagName(String label) {
         this.label = label;
     }
 
-    public static ETag valueOfLabel(String label) {
-        for (ETag e : values()) {
+    public static ETagName valueOfLabel(String label) {
+        for (ETagName e : values()) {
             if (e.label.equals(label)) {
                 return e;
             }
