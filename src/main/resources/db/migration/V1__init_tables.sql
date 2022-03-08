@@ -17,3 +17,15 @@ CREATE TABLE IF NOT EXISTS tags
     tagType VARCHAR (255) NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS task_steps
+(
+    taskStepId uuid NOT NULL PRIMARY KEY,
+    taskId uuid NOT NULL,
+    description VARCHAR (2000),
+    createdOn TIMESTAMP NOT NULL,
+    lastModified TIMESTAMP NOT NULL,
+    FOREIGN KEY (taskId)
+        REFERENCES tasks (taskId)
+        ON DELETE CASCADE
+);
+
