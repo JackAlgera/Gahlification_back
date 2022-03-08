@@ -42,6 +42,10 @@ public class TagService {
         tagDAO.deleteTagsForItem(itemId);
     }
 
+    public void deleteAllTags() {
+        tagDAO.deleteAllTags();
+    }
+
     public List<Tag> getTagsForItem(UUID itemId) {
         return tagDAO.getTagsForItemId(itemId);
     }

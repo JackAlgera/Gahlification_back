@@ -30,6 +30,11 @@ public class TagDAOImpl implements TagDAO {
     }
 
     @Override
+    public void deleteAllTags() {
+        tagRepository.deleteAll();
+    }
+
+    @Override
     public List<Tag> getTagsForItemId(UUID itemId) {
         return tagRepository.findTagsByItemId(itemId);
     }

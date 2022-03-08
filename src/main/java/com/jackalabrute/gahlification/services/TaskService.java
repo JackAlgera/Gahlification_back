@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,6 +26,10 @@ public class TaskService {
         Instant now = Instant.now();
         task.setCreatedOn(now);
         task.setLastModified(now);
+
+        if (task.getDoTaskAtDate() == null) {
+            task.setDoTaskAtDate(Instant.now().plus(1, ChronoUnit.HOURS));
+        }
 
         return taskDAO.create(task);
     }
@@ -55,6 +60,6 @@ public class TaskService {
     }
 
     public boolean checkTaskForCreate(Task task) {
-        return task.getTaskName() != null && task.getDoTaskAtDate() != null && task.getRepeatDelay() != null;
+        return task.getTaskName() != null && task.getRepeatDelay() != null; // task.getDoTaskAtDate() != null
     }
 }

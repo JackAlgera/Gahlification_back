@@ -10,5 +10,6 @@ public interface TagDAO {
     Tag createTag(Tag tag);
     void deleteTagByItemIdAndTagName(UUID itemId, String tagName);
     void deleteTagsForItem(UUID itemId);
+    void deleteAllTags();
     List<Tag> getTagsForItemId(UUID itemId);
 }

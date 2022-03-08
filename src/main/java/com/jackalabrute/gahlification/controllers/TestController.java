@@ -31,6 +31,7 @@ public class TestController {
      */
     @GetMapping(path = "/database/purge")
     public ResponseEntity<?> cleanDatabase() {
+        tagService.deleteAllTags();
         for (Task task : taskService.findAllTasks()) {
             taskService.deleteTask(task.getTaskId());
         }
@@ -47,15 +48,17 @@ public class TestController {
     public ResponseEntity<?> cleanAndAddTestData() {
         cleanDatabase();
 
-        Task task1 = taskService.createTask(new Task(null, "Task one", "Some description", Instant.now().plus(1, ChronoUnit.DAYS), 36000L, null, null));
-        Task task2 = taskService.createTask(new Task(null, "Task two", "Some other description", Instant.now().plus(5, ChronoUnit.DAYS), 36000L, null, null));
-        Task task3 = taskService.createTask(new Task(null, "Task Three", "Do this thing", Instant.now().plus(2, ChronoUnit.HOURS), 36000L, null, null));
+        Task task1 = taskService.createTask(new Task(null, "Task one", "Task with +1 days", Instant.now().plus(1, ChronoUnit.DAYS), 36000L, null, null));
+        Task task2 = taskService.createTask(new Task(null, "Task two", "Task with +5 days", Instant.now().plus(5, ChronoUnit.DAYS), 36000L, null, null));
+        Task task3 = taskService.createTask(new Task(null, "Task Three", "Task with +2 hours", Instant.now().plus(2, ChronoUnit.HOURS), 36000L, null, null));
+        Task task4 = taskService.createTask(new Task(null, "Task four", "Task with -2 hours", Instant.now().minus(2, ChronoUnit.HOURS), 36000L, null, null));
 
         tagService.createTag(new Tag(null, task1.getTaskId(), ETagName.ADMIN.label, ETagType.TASK.label));
         tagService.createTag(new Tag(null, task1.getTaskId(), ETagName.URGENT.label, ETagType.TASK.label));
         tagService.createTag(new Tag(null, task2.getTaskId(), ETagName.GAHLOU.label, ETagType.TASK.label));
         tagService.createTag(new Tag(null, task3.getTaskId(), ETagName.ADMIN.label, ETagType.TASK.label));
         tagService.createTag(new Tag(null, task3.getTaskId(), ETagName.FLOKKIE.label, ETagType.TASK.label));
+        tagService.createTag(new Tag(null, task4.getTaskId(), ETagName.URGENT.label, ETagType.TASK.label));
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
