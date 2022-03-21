@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 public class TagController {
@@ -41,20 +42,22 @@ public class TagController {
     }
 
     /**
-     * Generates a new tag for item.
+     * Generates a list of tags for item.
      *
-     * @param tag
+     * @param tags
      * @return
      */
     @PostMapping(path = "/tags")
-    public ResponseEntity<Tag> addTagToTask(@RequestBody Tag tag) {
+    public ResponseEntity<List<Tag>> addTagsToTask(@RequestBody List<Tag> tags) {
         try {
-            if (!tagService.checkTagForCreate(tag)) {
-                throw new IllegalArgumentException();
-            }
+            tags.forEach(tag -> {
+                if (!tagService.checkTagForCreate(tag)) {
+                    throw new IllegalArgumentException();
+                }
+            });
 
-            Tag newTag = tagService.createTag(tag);
-            return new ResponseEntity<>(newTag, HttpStatus.CREATED);
+            List<Tag> newTags = tags.stream().map(tag -> tagService.createTag(tag)).collect(Collectors.toList());
+            return new ResponseEntity<>(newTags, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
             throw new IncorrectRequestException("Incorrect task format, missing parameters.");
         }
