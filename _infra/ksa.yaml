@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    iam.gke.io/gcp-service-account: gahlification-gsa@jack-prod-344910.iam.gserviceaccount.com
+  name: gahlification-ksa
+  namespace: gahlification
