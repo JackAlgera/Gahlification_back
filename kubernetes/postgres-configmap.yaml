@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: database-config
+data:
+  # property-like keys; each key maps to a simple value
+  postgres_instance: "localhost:5432"
+  postgres_database_name: gahlification_db
+  postgres_user: gahlification_user
+  postgres_password: gahlification_password
