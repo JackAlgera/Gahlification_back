@@ -2,9 +2,7 @@ app:
   datasource:
     main:
       driver-class-name: org.postgresql.Driver
-      jdbc-url: jdbc:postgresql://${DATABASE_INSTANCE}/${DATABASE_NAME}
-      username: ${DATABASE_USER_NAME}
-      password: ${DATABASE_PASSWORD}
+      jdbc-url: ${JDBC_DATABASE_URL}
       pool-size: 30
 spring:
   jpa:
