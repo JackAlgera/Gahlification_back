@@ -21,6 +21,7 @@ server:
     include-stacktrace: never
   servlet:
     context-path: "/api"
+  port: ${PORT:5000}
 
 jwt:
   secret: jack
