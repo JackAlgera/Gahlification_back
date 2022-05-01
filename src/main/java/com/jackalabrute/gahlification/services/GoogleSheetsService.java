@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 public class GoogleSheetsService {
     private static final String APPLICATION_NAME = "Gahlificapption";
     private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
-    private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
+    private static final String CREDENTIALS_FILE_PATH = "/google-credentials.json";
     private static final String SPREADSHEET_ID = "1r9w3Kn_pnoTIrX_EHQThV2XJ-MO_C5Q8pdEAYYfa8N0";
 
     private static final Integer CELL_POSITION_MARGIN = 7;

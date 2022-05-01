@@ -5,7 +5,7 @@ target/
 !**/src/test/**/target/
 
 ### Creds ###
-**/credentials.json
+**/google-credentials.json
 **/tokens
 
 ### STS ###
