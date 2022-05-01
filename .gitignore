@@ -4,6 +4,10 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+### Creds ###
+**/credentials.json
+**/tokens
+
 ### STS ###
 .apt_generated
 .classpath
