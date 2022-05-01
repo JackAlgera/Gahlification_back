@@ -1,20 +1,19 @@
 version: "3.9"
 
 services:
-  gahlification_backend:
-    container_name: gahlification_backend
-#    image: jackalgera/gahlification_backend:latest
-    build: .
-    ports:
-      - "8080:8080"
-    environment:
-#      DATABASE_INSTANCE: 'localhost:5432'
-#      DATABASE_NAME: postgres
-#      DATABASE_USER_NAME: database_user
-#      DATABASE_PASSWORD: database_password
-      JDBC_DATABASE_URL: 'jdbc:postgresql://gahlification_database:5432/postgres?password=database_password&user=database_user'
-    depends_on:
-      - gahlification_database
+#  gahlification_backend:
+#    container_name: gahlification_backend
+##    image: jackalgera/gahlification_backend:latest
+#    build: .
+#    ports:
+#      - "8080:8080"
+#    environment:
+#      JDBC_DATABASE_URL: 'jdbc:postgresql://gahlification_database:5432/postgres?password=database_password&user=database_user'
+#      USERNAME: 'jack'
+#      PASSWORD: '$2a$10$YV.QV0pabaaT4w15CcV0bOUbmnU1laqPUzMh50NJ4pviZi4wpCRgW'
+#      SECRET: 'jack'
+#    depends_on:
+#      - gahlification_database
 
   gahlification_database:
     container_name: gahlification_database
