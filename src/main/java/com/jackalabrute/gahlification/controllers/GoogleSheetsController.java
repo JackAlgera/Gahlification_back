@@ -1,6 +1,7 @@
 package com.jackalabrute.gahlification.controllers;
 
 import com.jackalabrute.gahlification.exceptions.statuscodes.IncorrectRequestException;
+import com.jackalabrute.gahlification.models.AddCategoryEntryResponse;
 import com.jackalabrute.gahlification.models.BudgetCategory;
 import com.jackalabrute.gahlification.models.CellPosition;
 import com.jackalabrute.gahlification.models.CellRange;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class GoogleSheetsController {
@@ -32,17 +35,17 @@ public class GoogleSheetsController {
     }
 
     @GetMapping(path = "/sheets")
-    public ResponseEntity<?> getAllSheetNames() throws IOException {
+    public ResponseEntity<List<String>> getAllSheetNames() throws IOException {
         return ResponseEntity.ok(googleSheetsService.getAllSheetNames());
     }
 
     @GetMapping(path = "/categories")
-    public ResponseEntity<?> getAllCategories() {
-        return ResponseEntity.ok(BudgetCategory.values());
+    public ResponseEntity<List<BudgetCategory>> getAllCategories() {
+        return ResponseEntity.ok(List.of(BudgetCategory.values()));
     }
 
     @PostMapping(path = "/sheets/{sheetName}/categories/{category}")
-    public ResponseEntity<?> setCategoryValue(
+    public ResponseEntity<AddCategoryEntryResponse> setCategoryValue(
             @PathVariable String sheetName,
             @PathVariable String category,
             @RequestBody SetCategoryValueRequestBody requestBody) throws IOException {
@@ -56,7 +59,7 @@ public class GoogleSheetsController {
 
         googleSheetsService.writeCell(insertPosition, "" + requestBody.getCost());
         googleSheetsService.writeCell(insertPosition.getShiftedCellRange(-2), requestBody.getDescription());
-        return ResponseEntity.ok(insertPosition.toStringValue());
+        return ResponseEntity.ok(new AddCategoryEntryResponse(insertPosition.toStringValue()));
     }
 
     @PostMapping(path = "/sheets/{sheetName}")
