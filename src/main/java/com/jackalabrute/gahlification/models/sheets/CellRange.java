@@ -1,4 +1,4 @@
-package com.jackalabrute.gahlification.models;
+package com.jackalabrute.gahlification.models.sheets;
 
 import lombok.Data;
 

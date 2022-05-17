@@ -1,11 +1,11 @@
 package com.jackalabrute.gahlification.controllers;
 
 import com.jackalabrute.gahlification.exceptions.statuscodes.IncorrectRequestException;
-import com.jackalabrute.gahlification.models.AddCategoryEntryResponse;
+import com.jackalabrute.gahlification.models.web.AddCategoryEntryResponse;
 import com.jackalabrute.gahlification.models.BudgetCategory;
-import com.jackalabrute.gahlification.models.CellPosition;
-import com.jackalabrute.gahlification.models.CellRange;
-import com.jackalabrute.gahlification.models.SetCategoryValueRequestBody;
+import com.jackalabrute.gahlification.models.sheets.CellPosition;
+import com.jackalabrute.gahlification.models.sheets.CellRange;
+import com.jackalabrute.gahlification.models.AddCategoryEntryRequestBody;
 import com.jackalabrute.gahlification.services.GoogleSheetsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class GoogleSheetsController {
@@ -40,15 +41,19 @@ public class GoogleSheetsController {
     }
 
     @GetMapping(path = "/categories")
-    public ResponseEntity<List<BudgetCategory>> getAllCategories() {
-        return ResponseEntity.ok(List.of(BudgetCategory.values()));
+    public ResponseEntity<List<String>> getAllCategories() {
+        return ResponseEntity.ok(
+                Arrays.stream(BudgetCategory.values())
+                        .map(category -> category.value)
+                        .collect(Collectors.toList())
+        );
     }
 
     @PostMapping(path = "/sheets/{sheetName}/categories/{category}")
-    public ResponseEntity<AddCategoryEntryResponse> setCategoryValue(
+    public ResponseEntity<AddCategoryEntryResponse> addCategoryEntry(
             @PathVariable String sheetName,
             @PathVariable String category,
-            @RequestBody SetCategoryValueRequestBody requestBody) throws IOException {
+            @RequestBody AddCategoryEntryRequestBody requestBody) throws IOException {
         BudgetCategory budgetCategory = BudgetCategory.getValue(category);
 
         if (budgetCategory == null) {

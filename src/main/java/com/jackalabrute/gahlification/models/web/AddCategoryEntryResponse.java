@@ -1,4 +1,4 @@
-package com.jackalabrute.gahlification.models;
+package com.jackalabrute.gahlification.models.web;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

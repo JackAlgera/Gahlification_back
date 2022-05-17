@@ -11,8 +11,8 @@ import com.google.api.services.sheets.v4.model.ValueRange;
 import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.jackalabrute.gahlification.models.BudgetCategory;
-import com.jackalabrute.gahlification.models.CellPosition;
-import com.jackalabrute.gahlification.models.CellRange;
+import com.jackalabrute.gahlification.models.sheets.CellPosition;
+import com.jackalabrute.gahlification.models.sheets.CellRange;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;

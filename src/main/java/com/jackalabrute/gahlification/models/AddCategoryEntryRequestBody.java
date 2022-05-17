@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SetCategoryValueRequestBody implements Serializable {
+public class AddCategoryEntryRequestBody implements Serializable {
     private String description;
     private Float cost;
 }

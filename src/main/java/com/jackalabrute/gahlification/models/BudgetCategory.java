@@ -1,6 +1,6 @@
 package com.jackalabrute.gahlification.models;
 
-import java.util.Locale;
+import com.jackalabrute.gahlification.models.sheets.CellPosition;
 
 public enum BudgetCategory {
     COURSES("Courses", new CellPosition("D", 4)),
