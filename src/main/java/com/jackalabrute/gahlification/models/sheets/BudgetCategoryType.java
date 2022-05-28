@@ -1,8 +1,6 @@
-package com.jackalabrute.gahlification.models;
+package com.jackalabrute.gahlification.models.sheets;
 
-import com.jackalabrute.gahlification.models.sheets.CellPosition;
-
-public enum BudgetCategory {
+public enum BudgetCategoryType {
     COURSES("Courses", new CellPosition("D", 4)),
     LOGEMENT("Logement", new CellPosition("H", 4)),
     PROJETS("Projets", new CellPosition("L", 4)),
@@ -19,15 +17,15 @@ public enum BudgetCategory {
     FLOKKIE("Flokkie", new CellPosition("Z", 15));
 
     public String value;
-    public CellPosition startCellPosition;
+    public CellPosition startCellCostPosition;
 
-    BudgetCategory(String value, CellPosition startCellPosition) {
+    BudgetCategoryType(String value, CellPosition startCellCostPosition) {
         this.value = value;
-        this.startCellPosition = startCellPosition;
+        this.startCellCostPosition = startCellCostPosition;
     }
 
-    public static BudgetCategory getValue(String value) {
-        for (BudgetCategory category: values()) {
+    public static BudgetCategoryType getValue(String value) {
+        for (BudgetCategoryType category: values()) {
             if (category.value.equalsIgnoreCase(value)) {
                 return category;
             }
@@ -37,7 +35,7 @@ public enum BudgetCategory {
     }
 
     public static boolean containsValue(String value) {
-        for (BudgetCategory category: values()) {
+        for (BudgetCategoryType category: values()) {
             if (category.value.equalsIgnoreCase(value)) {
                 return true;
             }

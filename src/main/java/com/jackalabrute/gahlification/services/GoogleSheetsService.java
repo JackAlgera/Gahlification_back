@@ -10,7 +10,11 @@ import com.google.api.services.sheets.v4.model.Spreadsheet;
 import com.google.api.services.sheets.v4.model.ValueRange;
 import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.auth.oauth2.GoogleCredentials;
-import com.jackalabrute.gahlification.models.BudgetCategory;
+import com.jackalabrute.gahlification.exceptions.statuscodes.IncorrectRequestException;
+import com.jackalabrute.gahlification.models.sheets.Budget;
+import com.jackalabrute.gahlification.models.sheets.BudgetCategory;
+import com.jackalabrute.gahlification.models.sheets.BudgetCategoryType;
+import com.jackalabrute.gahlification.models.sheets.BudgetEntry;
 import com.jackalabrute.gahlification.models.sheets.CellPosition;
 import com.jackalabrute.gahlification.models.sheets.CellRange;
 import org.springframework.stereotype.Service;
@@ -21,7 +25,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,7 +37,11 @@ public class GoogleSheetsService {
     private static final String CREDENTIALS_FILE_PATH = "/google-credentials.json";
     private static final String SPREADSHEET_ID = "1r9w3Kn_pnoTIrX_EHQThV2XJ-MO_C5Q8pdEAYYfa8N0";
 
-    private static final Integer CELL_POSITION_MARGIN = 7;
+    private static final Integer MAX_ENTRIES_BUDGET = 8;
+    private static final Integer EXPENSE_TO_BUDGET_GAP = (MAX_ENTRIES_BUDGET + 1) * 2 + 4;
+
+    private static final CellPosition TOP_LEFT_SHEET_POSITION   = new CellPosition("B", 3);
+    private static final CellPosition BOT_RIGHT_SHEET_POSITION  = new CellPosition("T", 21);
 
     private static Sheets service = null;
 
@@ -72,15 +82,54 @@ public class GoogleSheetsService {
         return spreadsheet.getSheets().stream().map(sheet -> sheet.getProperties().getTitle()).collect(Collectors.toList());
     }
 
-    public CellRange getFirstEmptyCellForCategory(String sheetName, BudgetCategory category) throws IOException {
+    public CellRange getFirstEmptyCellForCategory(String sheetName, BudgetCategoryType category) throws IOException {
         CellPosition cellPositionWithMargin = new CellPosition(
-                category.startCellPosition.getColumn(),
-                category.startCellPosition.getRow() + CELL_POSITION_MARGIN
+                category.startCellCostPosition.getColumn(),
+                category.startCellCostPosition.getRow() + MAX_ENTRIES_BUDGET - 1
         );
 
-        List<List<Object>> data = getCellRangeData(new CellRange(sheetName, category.startCellPosition, cellPositionWithMargin));
+        List<List<Object>> data = getCellRangeData(new CellRange(sheetName, category.startCellCostPosition, cellPositionWithMargin));
 
         int nbrOfEntrees = data == null ? 0 : (int) data.stream().mapToLong(List::size).sum();
-        return new CellRange(sheetName, new CellPosition(category.startCellPosition.getColumn(), category.startCellPosition.getRow() + nbrOfEntrees), null);
+        return new CellRange(sheetName, new CellPosition(category.startCellCostPosition.getColumn(), category.startCellCostPosition.getRow() + nbrOfEntrees), null);
+    }
+
+    public Budget getGlobalBudget(String sheetName) throws IOException {
+        // Check if sheetName exists
+
+        // Get current values
+        CellRange currentDepensesRange = new CellRange(sheetName, TOP_LEFT_SHEET_POSITION, BOT_RIGHT_SHEET_POSITION);
+
+        Map<BudgetCategoryType, Object> typeToRawDataMap = new HashMap<>();
+        List<List<Object>> currentDepensesRawData = getCellRangeData(currentDepensesRange);
+
+
+        // Get budget
+
+        return null;
+    }
+
+    public BudgetCategory getBudgetCategory(String sheetName, BudgetCategoryType type) throws IOException {
+        CellRange currentCategoryRange = new CellRange(sheetName, type.startCellCostPosition.getShiftedCell(-2, -1), type.startCellCostPosition.getShiftedCell(0, EXPENSE_TO_BUDGET_GAP - 1));
+        List<List<Object>> currentExpsenseRawData = getCellRangeData(currentCategoryRange);
+
+        float totalSpent = getBudgetEntryFromRawData(currentExpsenseRawData.get(0)).getCost();
+        float budget = getBudgetEntryFromRawData(currentExpsenseRawData.get(currentExpsenseRawData.size() - 1)).getCost();
+        List<BudgetEntry> entries = currentExpsenseRawData.stream()
+                                                          .skip(0)
+                                                          .limit(MAX_ENTRIES_BUDGET + 1)
+                                                          .filter(rawEntry -> !rawEntry.isEmpty())
+                                                          .map(this::getBudgetEntryFromRawData)
+                                                          .collect(Collectors.toList());
+
+        return new BudgetCategory(type, entries, totalSpent, budget);
+    }
+
+    private BudgetEntry getBudgetEntryFromRawData(List<Object> rawData) {
+        if (rawData.size() < 3) {
+            throw new IncorrectRequestException("Internal error, something went wrong on GCP side, response size is too small.");
+        }
+
+        return new BudgetEntry((String) rawData.get(0), Float.parseFloat((String) rawData.get(2)));
     }
 }

@@ -1,11 +1,13 @@
 package com.jackalabrute.gahlification.controllers;
 
 import com.jackalabrute.gahlification.exceptions.statuscodes.IncorrectRequestException;
-import com.jackalabrute.gahlification.models.web.AddCategoryEntryResponse;
-import com.jackalabrute.gahlification.models.BudgetCategory;
+import com.jackalabrute.gahlification.models.sheets.Budget;
+import com.jackalabrute.gahlification.models.sheets.BudgetCategory;
+import com.jackalabrute.gahlification.models.sheets.BudgetCategoryType;
+import com.jackalabrute.gahlification.models.sheets.BudgetEntry;
 import com.jackalabrute.gahlification.models.sheets.CellPosition;
 import com.jackalabrute.gahlification.models.sheets.CellRange;
-import com.jackalabrute.gahlification.models.AddCategoryEntryRequestBody;
+import com.jackalabrute.gahlification.models.web.AddCategoryEntryResponse;
 import com.jackalabrute.gahlification.services.GoogleSheetsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,44 +29,62 @@ public class GoogleSheetsController {
     @Autowired
     private GoogleSheetsService googleSheetsService;
 
-    @GetMapping(path = "/sheets/{sheetName}")
-    public ResponseEntity<?> getSheetValue(@PathVariable String sheetName, @RequestParam String topLeftCellPosition, @RequestParam(required = false) String botRightCellPosition) throws IOException {
-        CellPosition topLeftCell = new CellPosition(topLeftCellPosition);
-        CellPosition botRightCell = botRightCellPosition != null ? new CellPosition(botRightCellPosition) : null;
-
-        return ResponseEntity.ok(googleSheetsService.getCellRangeData(new CellRange(sheetName, topLeftCell, botRightCell)));
-    }
-
-    @GetMapping(path = "/sheets")
+    @GetMapping(path = "/sheets/names")
     public ResponseEntity<List<String>> getAllSheetNames() throws IOException {
         return ResponseEntity.ok(googleSheetsService.getAllSheetNames());
     }
 
-    @GetMapping(path = "/categories")
-    public ResponseEntity<List<String>> getAllCategories() {
+    @GetMapping(path = "/categories/types")
+    public ResponseEntity<List<String>> getAllCategoryTypes() {
         return ResponseEntity.ok(
-                Arrays.stream(BudgetCategory.values())
+                Arrays.stream(BudgetCategoryType.values())
                         .map(category -> category.value)
                         .collect(Collectors.toList())
         );
+    }
+
+    @GetMapping(path = "/sheets/{sheetName}/budget")
+    public ResponseEntity<Budget> getGlobalBudget(@PathVariable String sheetName) throws IOException {
+        return ResponseEntity.ok(googleSheetsService.getGlobalBudget(sheetName));
+    }
+
+    @GetMapping(path = "/sheets/{sheetName}/categories/{category}/budget")
+    public ResponseEntity<BudgetCategory> getCategoryBudget(@PathVariable String sheetName, @PathVariable String category) throws IOException {
+        BudgetCategoryType budgetCategoryType = BudgetCategoryType.getValue(category);
+
+        if (budgetCategoryType == null) {
+            throw new IncorrectRequestException(String.format("Category %s doesn't exist.", category));
+        }
+
+        return ResponseEntity.ok(googleSheetsService.getBudgetCategory(sheetName, budgetCategoryType));
     }
 
     @PostMapping(path = "/sheets/{sheetName}/categories/{category}")
     public ResponseEntity<AddCategoryEntryResponse> addCategoryEntry(
             @PathVariable String sheetName,
             @PathVariable String category,
-            @RequestBody AddCategoryEntryRequestBody requestBody) throws IOException {
-        BudgetCategory budgetCategory = BudgetCategory.getValue(category);
+            @RequestBody BudgetEntry requestBody) throws IOException {
+        BudgetCategoryType budgetCategoryType = BudgetCategoryType.getValue(category);
 
-        if (budgetCategory == null) {
+        if (budgetCategoryType == null) {
             throw new IncorrectRequestException(String.format("Category %s doesn't exist.", category));
         }
 
-        CellRange insertPosition = googleSheetsService.getFirstEmptyCellForCategory(sheetName, budgetCategory);
+        CellRange insertPosition = googleSheetsService.getFirstEmptyCellForCategory(sheetName, budgetCategoryType);
 
         googleSheetsService.writeCell(insertPosition, "" + requestBody.getCost());
         googleSheetsService.writeCell(insertPosition.getShiftedCellRange(-2), requestBody.getDescription());
         return ResponseEntity.ok(new AddCategoryEntryResponse(insertPosition.toStringValue()));
+    }
+
+    // Endpoints for testing
+
+    @GetMapping(path = "/sheets/{sheetName}")
+    public ResponseEntity<?> getSheetValue(@PathVariable String sheetName, @RequestParam String topLeftCellPosition, @RequestParam(required = false) String botRightCellPosition) throws IOException {
+        CellPosition topLeftCell = new CellPosition(topLeftCellPosition);
+        CellPosition botRightCell = botRightCellPosition != null ? new CellPosition(botRightCellPosition) : null;
+
+        return ResponseEntity.ok(googleSheetsService.getCellRangeData(new CellRange(sheetName, topLeftCell, botRightCell)));
     }
 
     @PostMapping(path = "/sheets/{sheetName}")

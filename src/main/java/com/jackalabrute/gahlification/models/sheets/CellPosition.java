@@ -28,6 +28,13 @@ public class CellPosition {
         this.row = row;
     }
 
+    public CellPosition getShiftedCell(Integer hDelta, Integer vDelta) {
+        return new CellPosition(
+                column + hDelta,
+                row + vDelta
+        );
+    }
+
     public String toStringValue() {
         return String.format("%s%s", COLUMNS.get(column), row);
     }
