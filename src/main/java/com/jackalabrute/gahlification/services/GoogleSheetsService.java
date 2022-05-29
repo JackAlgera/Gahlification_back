@@ -116,7 +116,7 @@ public class GoogleSheetsService {
         float totalSpent = getBudgetEntryFromRawData(currentExpsenseRawData.get(0)).getCost();
         float budget = getBudgetEntryFromRawData(currentExpsenseRawData.get(currentExpsenseRawData.size() - 1)).getCost();
         List<BudgetEntry> entries = currentExpsenseRawData.stream()
-                                                          .skip(0)
+                                                          .skip(1)
                                                           .limit(MAX_ENTRIES_BUDGET + 1)
                                                           .filter(rawEntry -> !rawEntry.isEmpty())
                                                           .map(this::getBudgetEntryFromRawData)
