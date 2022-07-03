@@ -1,6 +1,6 @@
 package com.jackalabrute.gahlification.database.daos;
 
-import com.jackalabrute.gahlification.database.models.TaskStep;
+import com.jackalabrute.gahlification.database.models.tasks.TaskStep;
 import com.jackalabrute.gahlification.database.repos.TaskStepRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

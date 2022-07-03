@@ -1,6 +1,6 @@
 package com.jackalabrute.gahlification.database.daos;
 
-import com.jackalabrute.gahlification.database.models.TaskStep;
+import com.jackalabrute.gahlification.database.models.tasks.TaskStep;
 
 import java.util.List;
 import java.util.UUID;

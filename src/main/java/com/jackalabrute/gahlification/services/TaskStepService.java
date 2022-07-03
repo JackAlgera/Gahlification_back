@@ -1,9 +1,7 @@
 package com.jackalabrute.gahlification.services;
 
 import com.jackalabrute.gahlification.database.daos.TaskStepDAOImpl;
-import com.jackalabrute.gahlification.database.models.Task;
-import com.jackalabrute.gahlification.database.models.TaskStep;
-import com.jackalabrute.gahlification.exceptions.TaskNotFoundException;
+import com.jackalabrute.gahlification.database.models.tasks.TaskStep;
 import com.jackalabrute.gahlification.exceptions.TaskStepNotFoundException;
 import com.jackalabrute.gahlification.utils.IdGenerator;
 import org.springframework.beans.factory.annotation.Autowired;

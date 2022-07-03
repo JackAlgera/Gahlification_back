@@ -2,11 +2,11 @@ package com.jackalabrute.gahlification.controllers;
 
 import com.jackalabrute.gahlification.components.reminders.Reminder;
 import com.jackalabrute.gahlification.components.reminders.ReminderService;
-import com.jackalabrute.gahlification.database.models.TaskStep;
+import com.jackalabrute.gahlification.database.models.tasks.TaskStep;
 import com.jackalabrute.gahlification.database.models.tags.ETagName;
 import com.jackalabrute.gahlification.database.models.tags.ETagType;
 import com.jackalabrute.gahlification.database.models.tags.Tag;
-import com.jackalabrute.gahlification.database.models.Task;
+import com.jackalabrute.gahlification.database.models.tasks.Task;
 import com.jackalabrute.gahlification.services.TagService;
 import com.jackalabrute.gahlification.services.TaskService;
 import com.jackalabrute.gahlification.services.TaskStepService;
@@ -17,8 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.Instant;
-import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 
 @RestController

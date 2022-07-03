@@ -1,6 +1,6 @@
 package com.jackalabrute.gahlification.database.repos;
 
-import com.jackalabrute.gahlification.database.models.TaskStep;
+import com.jackalabrute.gahlification.database.models.tasks.TaskStep;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

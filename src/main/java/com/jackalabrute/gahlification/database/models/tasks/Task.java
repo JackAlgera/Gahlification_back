@@ -1,4 +1,4 @@
-package com.jackalabrute.gahlification.database.models;
+package com.jackalabrute.gahlification.database.models.tasks;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

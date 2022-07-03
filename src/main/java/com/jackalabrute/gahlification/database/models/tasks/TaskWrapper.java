@@ -1,4 +1,4 @@
-package com.jackalabrute.gahlification.database.models;
+package com.jackalabrute.gahlification.database.models.tasks;
 
 import com.jackalabrute.gahlification.database.models.tags.Tag;
 import lombok.AllArgsConstructor;

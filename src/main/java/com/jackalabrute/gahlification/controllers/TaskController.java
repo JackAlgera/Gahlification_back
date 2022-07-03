@@ -1,8 +1,8 @@
 package com.jackalabrute.gahlification.controllers;
 
-import com.jackalabrute.gahlification.database.models.Task;
-import com.jackalabrute.gahlification.database.models.TaskStep;
-import com.jackalabrute.gahlification.database.models.TaskWrapper;
+import com.jackalabrute.gahlification.database.models.tasks.Task;
+import com.jackalabrute.gahlification.database.models.tasks.TaskStep;
+import com.jackalabrute.gahlification.database.models.tasks.TaskWrapper;
 import com.jackalabrute.gahlification.exceptions.TaskNotFoundException;
 import com.jackalabrute.gahlification.exceptions.statuscodes.IncorrectRequestException;
 import com.jackalabrute.gahlification.exceptions.statuscodes.NotFoundException;
