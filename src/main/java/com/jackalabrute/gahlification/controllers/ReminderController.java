@@ -1,5 +1,7 @@
-package com.jackalabrute.gahlification.components.reminders;
+package com.jackalabrute.gahlification.controllers;
 
+import com.jackalabrute.gahlification.services.ReminderService;
+import com.jackalabrute.gahlification.database.models.Reminder;
 import com.jackalabrute.gahlification.exceptions.ReminderNotFoundException;
 import com.jackalabrute.gahlification.exceptions.statuscodes.IncorrectRequestException;
 import com.jackalabrute.gahlification.exceptions.statuscodes.NotFoundException;

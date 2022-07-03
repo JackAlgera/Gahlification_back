@@ -1,7 +1,7 @@
 package com.jackalabrute.gahlification.controllers;
 
-import com.jackalabrute.gahlification.components.reminders.Reminder;
-import com.jackalabrute.gahlification.components.reminders.ReminderService;
+import com.jackalabrute.gahlification.database.models.Reminder;
+import com.jackalabrute.gahlification.services.ReminderService;
 import com.jackalabrute.gahlification.database.models.tasks.TaskStep;
 import com.jackalabrute.gahlification.database.models.tags.ETagName;
 import com.jackalabrute.gahlification.database.models.tags.ETagType;

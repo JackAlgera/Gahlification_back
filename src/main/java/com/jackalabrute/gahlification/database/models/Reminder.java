@@ -1,4 +1,4 @@
-package com.jackalabrute.gahlification.components.reminders;
+package com.jackalabrute.gahlification.database.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

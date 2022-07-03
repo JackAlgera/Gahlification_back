@@ -1,5 +1,7 @@
-package com.jackalabrute.gahlification.components.reminders;
+package com.jackalabrute.gahlification.services;
 
+import com.jackalabrute.gahlification.database.models.Reminder;
+import com.jackalabrute.gahlification.database.repos.RemindersRepository;
 import com.jackalabrute.gahlification.exceptions.ReminderNotFoundException;
 import com.jackalabrute.gahlification.utils.IdGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,7 @@ import java.util.UUID;
 public class ReminderService {
 
     @Autowired
-    private ReminderDAOImpl reminderDAO;
+    private RemindersRepository remindersRepository;
 
     @Autowired
     private IdGenerator idGenerator;
@@ -32,28 +34,28 @@ public class ReminderService {
             reminder.setPingFrequencyInterval(3600L);
         }
 
-        return reminderDAO.create(reminder);
+        return remindersRepository.save(reminder);
     }
 
     public void deleteReminder(UUID reminderId) {
         Reminder reminder = findReminderById(reminderId);
-        reminderDAO.delete(reminder.getReminderId());
+        remindersRepository.deleteById(reminder.getReminderId());
     }
 
     public Reminder findReminderById(UUID reminderId) {
-        return reminderDAO.findById(reminderId)
+        return remindersRepository.findById(reminderId)
                       .orElseThrow(() -> new ReminderNotFoundException(reminderId));
     }
 
     public List<Reminder> findAllReminders() {
-        return reminderDAO.findAll();
+        return remindersRepository.findAll();
     }
 
     public Reminder updateReminder(Reminder reminder) {
         Reminder currentReminder = findReminderById(reminder.getReminderId());
         currentReminder.updateValues(reminder);
         
-        return reminderDAO.update(currentReminder);
+        return remindersRepository.save(currentReminder);
     }
 
     public boolean checkReminderForUpdate(Reminder reminder) {
