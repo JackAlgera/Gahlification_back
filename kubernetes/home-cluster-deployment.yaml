@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: home-cluster-backend
+  labels:
+    app: home-cluster-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: home-cluster-backend
+  template:
+    metadata:
+      labels:
+        app: home-cluster-backend
+    spec:
+      containers:
+        - name: home-cluster-backend-api
+          image: 'jackalgera/home-cluster-backend:latest'
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: JDBC_DATABASE_URL
+              value: jdbc:postgresql://postgres:5432/postgres?password=database_password&user=database_user
+#              valueFrom:
+#                configMapKeyRef:
+#                  name: postgres-config
+#                  key:
+            - name: USERNAME
+              value: 'gahlou'
+            - name: PASSWORD
+              value: '$$2a$$10$$0QAJDNGw5kgfrOnrI1tPmu0KVWc6g7hSx6V2TLtaQEp5zo6uiy4oa'
+            - name: SECRET
+              value: 'jack'

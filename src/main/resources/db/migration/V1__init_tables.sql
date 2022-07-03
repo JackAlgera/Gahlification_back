@@ -29,3 +29,14 @@ CREATE TABLE IF NOT EXISTS task_steps
         ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS reminders
+(
+    reminderId uuid NOT NULL PRIMARY KEY,
+    name VARCHAR (255) NOT NULL,
+    description VARCHAR (2000),
+    dueDate TIMESTAMP NOT NULL,
+    startNotifyingDate TIMESTAMP,
+    pingFrequencyInterval BIGINT,
+    createdOn TIMESTAMP NOT NULL,
+    lastModified TIMESTAMP NOT NULL
+);

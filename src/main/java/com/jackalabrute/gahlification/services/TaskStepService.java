@@ -27,7 +27,7 @@ public class TaskStepService {
 
     public TaskStep createTaskStep(TaskStep taskStep) {
         taskStep.setTaskStepId(idGenerator.getRandomId());
-        Instant now = Instant.now();
+        Instant now = idGenerator.now();
         taskStep.setCreatedOn(now);
         taskStep.setLastModified(now);
 

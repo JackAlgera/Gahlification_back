@@ -23,7 +23,7 @@ public class TaskService {
 
     public Task createTask(Task task) {
         task.setTaskId(idGenerator.getRandomId());
-        Instant now = Instant.now();
+        Instant now = idGenerator.now();
         task.setCreatedOn(now);
         task.setLastModified(now);
 

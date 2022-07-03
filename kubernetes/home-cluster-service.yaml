@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: gahlification-backend-service
+  name: home-cluster-service
   labels:
-    app: gahlification-backend
+    app: home-cluster-backend
 spec:
   selector:
-    app: gahlification-backend
-  type: ClusterIP
+    app: home-cluster-backend
+  type: LoadBalancer
   ports:
     - protocol: TCP
       port: 8080
