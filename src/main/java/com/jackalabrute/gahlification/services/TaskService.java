@@ -1,8 +1,8 @@
 package com.jackalabrute.gahlification.services;
 
-import com.jackalabrute.gahlification.database.daos.TaskDAOImpl;
-import com.jackalabrute.gahlification.exceptions.TaskNotFoundException;
 import com.jackalabrute.gahlification.database.models.tasks.Task;
+import com.jackalabrute.gahlification.database.repos.TaskRepository;
+import com.jackalabrute.gahlification.exceptions.TaskNotFoundException;
 import com.jackalabrute.gahlification.utils.IdGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import java.util.UUID;
 public class TaskService {
 
     @Autowired
-    private TaskDAOImpl taskDAO;
+    private TaskRepository taskRepository;
 
     @Autowired
     private IdGenerator idGenerator;
@@ -31,28 +31,28 @@ public class TaskService {
             task.setDoTaskAtDate(Instant.now().plus(1, ChronoUnit.HOURS));
         }
 
-        return taskDAO.create(task);
+        return taskRepository.save(task);
     }
 
     public void deleteTask(UUID taskId) {
         Task task = findTaskById(taskId);
-        taskDAO.delete(task.getTaskId());
+        taskRepository.deleteById(task.getTaskId());
     }
 
     public Task findTaskById(UUID taskId) {
-        return taskDAO.findById(taskId)
+        return taskRepository.findById(taskId)
                       .orElseThrow(() -> new TaskNotFoundException(taskId));
     }
 
     public List<Task> findAllTasks() {
-        return taskDAO.findAll();
+        return taskRepository.findAll();
     }
 
     public Task updateTask(Task task) {
         Task currentTask = findTaskById(task.getTaskId());
         currentTask.updateValues(task);
         
-        return taskDAO.update(currentTask);
+        return taskRepository.save(currentTask);
     }
 
     public boolean checkTaskForUpdate(Task task) {
