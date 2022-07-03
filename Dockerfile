@@ -19,7 +19,7 @@ RUN mvn clean package -DskipTests
 FROM adoptopenjdk/openjdk11:latest
 
 # Copy the jar to the production image from the builder stage.
-COPY --from=builder /app/target/Gahlification-*.jar /gahlification.jar
+COPY --from=builder /app/target/home-cluster-backend-*.jar /home-cluster-backend.jar
 
 # Run the web service on container startup.
-CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/gahlification.jar"]
+CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/home-cluster-backend.jar"]

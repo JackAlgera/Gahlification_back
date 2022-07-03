@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.jackalabrute</groupId>
-	<artifactId>Gahlification</artifactId>
+	<artifactId>home-cluster-backend</artifactId>
 	<version>0.1</version>
-	<name>Gahlification</name>
-	<description>Backend for the Gahlification application</description>
+	<name>home-cluster-backend</name>
+	<description>Backend APIs for my home cluster</description>
 
 	<properties>
 		<java.version>11</java.version>

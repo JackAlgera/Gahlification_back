@@ -1,17 +1,9 @@
-# Gahlification_back
-Backend for the Gahlification project
+# Home-cluster-backend
+Backend APIs for my home Kubernetes cluster.
 
-# Useful information
+## Build Docker image
 
-## Heroku cloud provider
-
-### Getting started project example
-https://github.com/heroku/java-getting-started
-
-### See logs in real time
-`heroku logs --tail`
-
-### Connect to postgres database: 
-
-- On heroku: `heroku pg:psql`
-- Locally: `psql -d postgres -U database_user`
+```
+docker build -t jackalgera/home-cluster-backend:latest .
+docker push jackalgera/home-cluster-backend:latest
+```
